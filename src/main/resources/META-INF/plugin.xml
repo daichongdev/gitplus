@@ -1,0 +1,59 @@
+<idea-plugin>
+    <id>com.daichongweb.gitplus</id>
+    <name>GitPlus</name>
+    <version>1.0.0</version>
+    <idea-version since-build="232" until-build="242.*"/>
+    <vendor email="daichongweb@gmail.com" url="https://daichongweb.com">daichongweb</vendor>
+    
+    <description><![CDATA[
+        A Git enhancement tool that provides convenient features for managing Git-tracked files.
+        This plugin adds context menu actions to help you:
+        - Remove files from Git cache while keeping them in your working directory (git rm --cached)
+        - Add files or directories to .gitignore with a single click
+        
+        All operations can be performed directly from the project view context menu,
+        making Git file management more efficient and user-friendly.
+    ]]></description>
+
+    <change-notes><![CDATA[
+        <h3>1.0.0</h3>
+        <ul>
+            <li>Initial release</li>
+            <li>Support removing files from Git cache</li>
+            <li>Support adding files to .gitignore</li>
+        </ul>
+    ]]></change-notes>
+
+    <!-- Dependencies -->
+    <depends>com.intellij.modules.platform</depends>
+    <depends>Git4Idea</depends>
+
+    <actions>
+        <action id="AddToIgnoreFile" class="com.daichongweb.gitplus.AddToIgnoreFileAction"
+                text="Add to Ignore File" 
+                description="Add selected file or folder to Git ignore file">
+            <add-to-group group-id="ProjectViewPopupMenu" anchor="last"/>
+        </action>
+
+        <action id="GitRemoveFromCache"
+                class="com.daichongweb.gitplus.GitRemoveFromCacheAction"
+                text="Git Remove From Cache"
+                description="Remove selected file or folder from Git cache">
+            <add-to-group group-id="ProjectViewPopupMenu" anchor="last"/>
+        </action>
+    </actions>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- 注册通知组 -->
+        <notificationGroup id="GitIgnore.Notification" 
+                          displayType="BALLOON" 
+                          key="gitignore.notification.group"
+                          bundle="messages.MyBundle"
+                          isLogByDefault="true"/>
+        <notificationGroup id="GitRemoveFromCache.Notification" 
+                          displayType="BALLOON" 
+                          key="gitremove.notification.group"
+                          bundle="messages.MyBundle"
+                          isLogByDefault="true"/>
+    </extensions>
+</idea-plugin>
